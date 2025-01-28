@@ -12,3 +12,104 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum Designation {
+  // Software Development
+  FRONTEND_DEVELOPER
+  BACKEND_DEVELOPER
+  FULLSTACK_DEVELOPER
+  SOFTWARE_ENGINEER
+  MOBILE_DEVELOPER
+  GAME_DEVELOPER
+  EMBEDDED_SYSTEMS_ENGINEER
+  DEVOPS_ENGINEER
+  QA_ENGINEER
+  TEST_AUTOMATION_ENGINEER
+
+  // Data and AI
+  DATA_SCIENTIST
+  DATA_ANALYST
+  DATA_ENGINEER
+  MACHINE_LEARNING_ENGINEER
+  AI_RESEARCHER
+  COMPUTER_VISION_ENGINEER
+  NLP_ENGINEER
+  BIG_DATA_ENGINEER
+
+  // Cloud and Infrastructure
+  CLOUD_ENGINEER
+  CLOUD_SOLUTION_ARCHITECT
+  SITE_RELIABILITY_ENGINEER
+  NETWORK_ENGINEER
+  SYSTEM_ADMINISTRATOR
+
+  // Cybersecurity
+  CYBERSECURITY_ANALYST
+  PENETRATION_TESTER
+  SECURITY_ENGINEER
+  CRYPTOGRAPHY_ENGINEER
+
+  // Blockchain
+  BLOCKCHAIN_DEVELOPER
+  SMART_CONTRACT_DEVELOPER
+  WEB3_DEVELOPER
+
+  // Design and UX
+  UI_UX_DESIGNER
+  PRODUCT_DESIGNER
+  GRAPHIC_DESIGNER
+
+  // Product and Management
+  PRODUCT_MANAGER
+  TECHNICAL_PROJECT_MANAGER
+  SCRUM_MASTER
+
+  // Research and Academia
+  RESEARCH_SCIENTIST
+  COMPUTER_SCIENCE_LECTURER
+  TECHNICAL_WRITER
+
+  // Miscellaneous
+  GAME_DESIGNER
+  AR_VR_DEVELOPER
+  DATABASE_ADMINISTRATOR
+  IT_SUPPORT_SPECIALIST
+  SOFTWARE_ARCHITECT
+  CTO
+}
+
+
+
+model User {
+  id          String      @id @default(cuid())
+  email       String      @unique
+  username    String      @unique
+  password    String
+  profilePic  String
+  bio         String?
+  designation Designation
+  skills      Skill[]
+  rating      Float       @default(0.0)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Skill {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+
+model Message{
+  id          String   @id @default(cuid())
+  text        String
+  senderId    String
+  receiverId  String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
