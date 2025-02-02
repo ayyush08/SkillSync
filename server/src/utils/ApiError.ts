@@ -1,4 +1,16 @@
-import { ApiErrorTypes } from "../types/utilTypes";
+
+
+
+export interface ApiErrorTypes {
+    statusCode: number;
+    message: string | undefined;
+    errors: string[];
+    stack?: string;
+}
+
+
+
+
 
 class ApiError extends Error implements ApiErrorTypes {
     statusCode: number;

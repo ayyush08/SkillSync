@@ -1,12 +1,19 @@
-import { ApiResponseTypes } from "../types/utilTypes";
 
 
-class ApiResponse implements ApiResponseTypes{
-    statusCode:number;
-    data:any|null;
-    message:string;
-    success:boolean;
-    constructor(statusCode:number,data:any|null,message:string="Success"){
+
+export interface ApiResponseTypes {
+    statusCode: number;
+    data: any | null;
+    message: string;
+    success: boolean;
+}
+
+class ApiResponse implements ApiResponseTypes {
+    statusCode: number;
+    data: any | null;
+    message: string;
+    success: boolean;
+    constructor(statusCode: number, data: any | null, message: string = "Success") {
         this.statusCode = statusCode;
         this.data = data;
         this.message = message;
@@ -14,4 +21,4 @@ class ApiResponse implements ApiResponseTypes{
     }
 }
 
-export {ApiResponse}
+export { ApiResponse }

@@ -100,6 +100,7 @@ model User {
   id          String      @id @default(cuid())
   email       String      @unique
   username    String      @unique
+  fullName    String
   password    String
   profilePic  String
   bio         String?
@@ -110,12 +111,12 @@ model User {
   rating      Float       @default(0) 
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
+  refreshToken String?
 }
 
 model Skill {
   id          String   @id @default(cuid())
   name        String   @unique
-  description String
   userId      String
   user        User     @relation(fields: [userId], references: [id])
   createdAt   DateTime @default(now())

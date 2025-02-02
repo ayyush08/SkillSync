@@ -24,12 +24,12 @@ app.use(cors({origin: true, credentials: true}))
 
 
 import authRoutes from './routes/auth.routes.ts'
-app.use('/api/auth', authRoutes)
+app.use('/api/v1/auth', authRoutes)
 
 
 app.use(errorHandler)
 app.listen(process.env.PORT, () => {
-    console.log(`Server is running on port ${process.env.PORT}`)
+    console.log(`Server is running on http://localhost:${process.env.PORT}`)
 })
 
 
