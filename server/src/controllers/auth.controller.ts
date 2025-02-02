@@ -1,13 +1,13 @@
 import prisma from "../db";
 import bcryptjs from "bcryptjs";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import { asyncHandler } from "../utils/asyncHandler";
 
 
 
-const generateAccessAndRefreshToken = () => {
+const generateAccessAndRefreshToken = (userId) => {
     console.log("generateAccessAndRefreshToken");
-    
+
 }
 
 
@@ -32,4 +32,4 @@ const logout = asyncHandler(async (req, res) => {
 
 
 
-export { register,login,logout };
+export { register, login, logout };
