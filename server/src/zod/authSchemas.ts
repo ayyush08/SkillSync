@@ -2,23 +2,6 @@ import { profile } from 'console';
 import { z } from 'zod';
 
 
-export const authMiddlewareSchema = z.object({
-    id: z.string(),
-    username: z.string(),
-    email: z.string(),
-    profilePic: z.string().optional(),
-    bio: z.string().optional(),
-    field: z.string(),
-    profession: z.string(),
-    level: z.string(),
-    rating: z.number().optional(),
-    createdAt: z.string(),
-    updatedAt: z.string(),
-})
-
-
-
-
 
 
 
@@ -97,4 +80,11 @@ export const registerSchema = z.object({
     field: z.nativeEnum(Fields),
     skills: z.array(z.string()).optional(),
     level: z.enum(["Beginner", "Intermediate", "Advanced"]),
+})
+
+
+export const loginSchema = z.object({
+    username: z.string().optional(),
+    email: z.string().optional(),
+    password: z.string().min(8,"Passwords cannot be less than 8 characters long")
 })

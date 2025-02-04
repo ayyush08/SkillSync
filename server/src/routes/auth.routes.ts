@@ -1,11 +1,14 @@
 import { Router } from 'express';
-import { login, logout, register } from '../controllers/auth.controller';
+import { login, logout, refreshAccessToken, register } from '../controllers/auth.controller';
+import { verifyJWT } from '../middlewares/auth.middleware';
+
 
 const router = Router();
 
-router.post('/register',register);
-router.post('/login',login);
-router.post('/logout',logout);
+router.route('/register').post(register);
+router.route('/login').post(login);
+router.route('/logout').post(verifyJWT,logout);
+router.route('/refresh-token').post(refreshAccessToken)
 
 
 

@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { asyncHandler } from "../utils/asyncHandler";
 import { ApiError } from "../utils/ApiError";
-import { authMiddlewareSchema } from "../zod/authSchemas";
 import { z } from "zod";
 import prisma from "../db";
 import jwt, {
@@ -11,19 +10,18 @@ import jwt, {
 
 
 
-interface AuthRequest extends Request{
-    user?: z.infer<typeof authMiddlewareSchema>
-}
-
 
 export const verifyJWT = asyncHandler(
-    async (req: AuthRequest, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
         try {
+            
             const token =
                 req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "");
 
+
+
             if (!token) {
-                throw new ApiError(401, "Unauthorized request");
+                throw new ApiError(401, "Unauthorized request,Token not found");
             }
             const decodedToken = jwt.verify(
                 token,
@@ -40,13 +38,12 @@ export const verifyJWT = asyncHandler(
                 throw new ApiError(401, "Invalid Access Token");
             }
 
-            // Validate and transform user data using Zod
-            const safeUser = authMiddlewareSchema.parse(user);
 
-            req.user = safeUser;
+            req.user = user;
             
             next();
         } catch (error: any) {
+            console.error(error)
             throw new ApiError(401, error?.message || "Invalid Access Token");
         }
     }
